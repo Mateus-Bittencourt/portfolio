@@ -1,21 +1,35 @@
 import styles from "./Card.module.css";
-import lpdnc from "../../Image/projects/lpdnc.svg";
 import ButtonB from "./ButtonB";
+import { useState } from "react";
 
 const Card = ({ img, title, description, tech, repo, site }) => {
+  const [info, setInfo] = useState(false);
+
+  const InfoOn = () =>{
+    setInfo(true);
+  }
+
+  const InfoOff = () =>{
+    setInfo(false);
+  }
+
+
   return (
-    <div className={styles.card}>
-      <a href={site}>
+    <div onMouseLeave={InfoOff} className={styles.card}>
+      <a onMouseEnter={InfoOn}  href={site}>
         <img src={img}></img>
       </a>
-      <section>
-        <h3>{title}</h3>
-        <p>
-          <strong>Tecnologia:</strong> {tech}
-        </p>
-        <p>{description}</p>
-        <ButtonB text="Acesse o repositório" link={repo}></ButtonB>
-      </section>
+
+      {info && (
+        <section>
+          <h3>{title}</h3>
+          <p>
+            <strong>Tecnologia:</strong> {tech}
+          </p>
+          <p>{description}</p>
+          <ButtonB text="Acesse o repositório" link={repo}></ButtonB>
+        </section>
+      )}
     </div>
   );
 };
